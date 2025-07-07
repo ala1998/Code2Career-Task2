@@ -2,43 +2,56 @@ class LibraryItem {
 
     static counter = 0;
 
+    #id;
+    #name;
+    #owner;
+    #isAvailable;
+
     constructor(id, name, owner, isAvailable = false) {
-        this.id = id;
-        this.name = name;
-        this.owner = owner;
-        this.isAvailable = isAvailable;
-        LibraryItem.counter++; // only in this form
+        this.#id = id;
+        this.#name = name;
+        this.#owner = owner;
+        this.#isAvailable = isAvailable;
+        LibraryItem.counter++; // Only in this form
     }
 
     toggleAvailabilityStatus() {
-        this.isAvailable = !this.isAvailable;
+        this.#isAvailable = !this.#isAvailable;
     }
 
     info() {
-        return `The "${this.name}" library item owned by ${this.owner} is [${this.isAvailable ? 'available' : 'unavailable'}] now!`;
+        return `The "${this.#name}" library item owned by ${this.#owner} is [${this.#isAvailable ? 'available' : 'unavailable'}] now!`;
+    }
+
+    getID() {
+        return this.#id;
+    }
+
+    setID(id) {
+        this.#id = id;
     }
 
     getName() {
-        return this.name;
+        return this.#name;
     }
 
     setName(name) {
-        this.name = name;
+        this.#name = name;
     }
 
     getOwner() {
-        return this.owner;
+        return this.#owner;
     }
 
     setOwner(owner) {
-        this.owner = owner;
+        this.#owner = owner;
     }
 
     isAvailableNow() {
-        return this.isAvailable;
+        return this.#isAvailable;
     }
 
-    static numberOfLibraryItems(){
+    static numberOfLibraryItems() {
         return `The number of Library Items created till now: ${this.counter}.`; // Or use LibraryItem.counter;
     }
 }
@@ -49,49 +62,52 @@ class Book extends LibraryItem {
 
     static counter = 0;
 
+    #publishedAt;
+    #numOfPages;
+    #isRead;
+
     constructor(id, title, author, publishedAt, numOfPages, isRead = false) {
         super(id, title, author); // Assume that the author is like the owner.
-        this.publishedAt = publishedAt;
-        this.numOfPages = numOfPages;
-        this.isRead = isRead;
+        this.#publishedAt = publishedAt;
+        this.#numOfPages = numOfPages;
+        this.#isRead = isRead;
         Book.counter++;
     }
 
     toggleReadStatus() {
-        this.isRead = !this.isRead;
+        this.#isRead = !this.isRead;
     }
 
     info() {
-        return `The "${this.name}" book by ${this.owner}, which's published in ${this.publishedAt} is [${this.isRead ? 'read' : 'unread'}] now.`;
+        return `The "${this.getName()}" book by ${this.getOwner()}, which's published in ${this.#publishedAt} is [${this.#isRead ? 'read' : 'unread'}] now.`;
     }
 
-    isReadNow(){
-        return this.isRead;
+    isReadNow() {
+        return this.#isRead;
     }
 
-    getPagesNum()
-    {
-        return this.numOfPages;
+    getPagesNum() {
+        return this.#numOfPages;
     }
 
-    setPagesNum(numOfPages){
-        if(numOfPages>0){
-        this.numOfPages = numOfPages;
+    setPagesNum(numOfPages) {
+        if (numOfPages > 0) {
+            this.#numOfPages = numOfPages;
         }
-        else{
-        console.log("The number of pages can't be negative!");
+        else {
+            console.log("The number of pages can't be negative!");
         }
     }
 
-    whenPublished(){
-        return this.publishedAt;
+    whenPublished() {
+        return this.#publishedAt;
     }
 
-    setPublishYear(publishedAt){
-        this.publishedAt = publishedAt;
+    setPublishYear(publishedAt) {
+        this.#publishedAt = publishedAt;
     }
 
-    static numberOfBooks(){
+    static numberOfBooks() {
         return `The number of Books created till now: ${this.counter}.`; // Or use Book.counter;
     }
 }
